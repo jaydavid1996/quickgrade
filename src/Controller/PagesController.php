@@ -18,7 +18,11 @@ use Cake\Core\Configure;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 // use Cake\View\Exception\MissingTemplateException;
-use  App\Module\FirestoreModule as Firestore;
+// use  App\Module\FirestoreModule as Firestore;
+use App\FireModel\Users;
+use App\FireModel\Students;
+use App\FireModel\Exams;
+use App\FireModel\Classes;
 
 /**
  * Static content controller
@@ -39,13 +43,67 @@ class PagesController extends AppController
      * @throws \Cake\Http\Exception\NotFoundException When the view file could not
      *   be found or \Cake\View\Exception\MissingTemplateException in debug mode.
      */
-     
+
     ####################################################
-    public function test(){
-      new Firestore();
-      exit;
-    } 
-    #################################################### 
+    public function index(){
+
+    }
+    ####################################################
+    public function login(){
+
+    }
+    ####################################################
+    public function users(){
+      $this->request->session()->delete('SELECTED_USER');
+      $user = new Users;
+      $data = $user->getUsers();
+      
+      $this->set('data',$data);
+      // debug($data);exit;
+
+
+    }
+    ####################################################
+    public function loaduser(){
+       $user_link = $this->request->getQuery('user');
+      if (empty($user_link)) {
+        $this->redirect(['controller'=>'pages','action'=>'users']);
+      }
+      $this->request->session()->write('SELECTED_USER',$user_link);
+      $this->redirect(['controller'=>'pages','action'=>'students']);
+      // $this->redirect
+    }
+    ####################################################
+    public function students(){
+      $students = new Students;
+      $user_link = $this->request->session()->read('SELECTED_USER');
+      $data = $students->getStudents($user_link);
+      // debug($data);exit;
+      $this->set('data',$data);
+      
+      
+    }
+    ####################################################
+    public function exams(){
+      
+      $exams = new Exams;
+      $user_link = $this->request->session()->read('SELECTED_USER');
+      $data = $exams->getExams($user_link);
+      // debug($data);exit;
+      $this->set('data',$data);
+
+    }
+    ####################################################
+    public function classes(){
+      
+      $classes = new Classes;
+      $user_link = $this->request->session()->read('SELECTED_USER');
+      $data = $classes->getClasses($user_link);
+      // debug($data);exit;
+      $this->set('data',$data);
+
+    }
+    ####################################################
     // public function display(...$path)
     // {
     //     $count = count($path);
@@ -56,7 +114,7 @@ class PagesController extends AppController
     //         throw new ForbiddenException();
     //     }
     //     $page = $subpage = null;
-    // 
+    //
     //     if (!empty($path[0])) {
     //         $page = $path[0];
     //     }
@@ -64,7 +122,7 @@ class PagesController extends AppController
     //         $subpage = $path[1];
     //     }
     //     $this->set(compact('page', 'subpage'));
-    // 
+    //
     //     try {
     //         $this->render(implode('/', $path));
     //     } catch (MissingTemplateException $exception) {

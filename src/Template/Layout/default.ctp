@@ -26,32 +26,64 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('style.css') ?>
 
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+    <?= $this->Html->css('bootstrap.min') ?>
+    <?= $this->Html->css('fontawesome-free/css/all.min') ?>
+    <?= $this->Html->css('dataTables.bootstrap4.css') ?>
+    <?= $this->Html->css('sb-admin.css') ?>
+
+
 </head>
-<body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
-            </ul>
-        </div>
-    </nav>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
+
+  <body id="page-top">
+
+  <?= $this->element('top_nav') ?>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <?= $this->element('side_nav') ?>
+      
+
+      <div id="content-wrapper">
         <?= $this->fetch('content') ?>
+      
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+            </div>
+          </div>
+        </footer>
+
+      </div>
+      <!-- /.content-wrapper -->
+
     </div>
-    <footer>
-    </footer>
-</body>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <?= $this->element('logout') ?>
+
+
+
+    <!-- Demo scripts for this page-->
+    <?php echo $this->Html->script([
+      'jquery.min',
+      'bootstrap.bundle.min',
+      'jquery.easing.min',
+      'datatables/jquery.dataTables',
+      'datatables/dataTables.bootstrap4',
+      'sb-admin',
+    ]); ?>
+    
+    <?php echo $this->fetch('scriptBottom'); ?>
+
+  </body>
+  
 </html>

@@ -52,4 +52,16 @@ class AppController extends Controller
          */
         //$this->loadComponent('Security');
     }
+    
+    public function beforeRender(Event $event){
+      $this->checkuser();
+    }
+    // 
+    protected function checkuser(){
+        $action = $this->request->params['action'];
+        if (($action !='users') && (!$this->request->session()->check('SELECTED_USER'))) {
+          // echo "string";exit;
+          $this->redirect(['controller'=>'pages','action'=>'users']);
+        }
+    }
 }
