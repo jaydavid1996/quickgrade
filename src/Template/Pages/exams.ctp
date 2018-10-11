@@ -18,6 +18,7 @@
                 </thead>
 
                 <tbody>
+                <?php if (isset($data['documents'])&&!empty($data['documents']) ): ?>
                   <?php foreach ($data['documents'] as $key => $value): ?>
                     <tr>
                       <td><?=$value['fields']['name']['stringValue']; ?></td>
@@ -27,6 +28,7 @@
                       <td><?=$value['name'] ?></td>
                     </tr>
                   <?php endforeach; ?>
+                <?php endif; ?>
                 </tbody>
               </table>
             </div>

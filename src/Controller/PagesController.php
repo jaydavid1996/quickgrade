@@ -23,6 +23,7 @@ use App\FireModel\Users;
 use App\FireModel\Students;
 use App\FireModel\Exams;
 use App\FireModel\Classes;
+use App\FireModel\Papers;
 
 /**
  * Static content controller
@@ -57,7 +58,7 @@ class PagesController extends AppController
       $this->request->session()->delete('SELECTED_USER');
       $user = new Users;
       $data = $user->getUsers();
-      
+
       $this->set('data',$data);
       // debug($data);exit;
 
@@ -80,12 +81,12 @@ class PagesController extends AppController
       $data = $students->getStudents($user_link);
       // debug($data);exit;
       $this->set('data',$data);
-      
-      
+
+
     }
     ####################################################
     public function exams(){
-      
+
       $exams = new Exams;
       $user_link = $this->request->session()->read('SELECTED_USER');
       $data = $exams->getExams($user_link);
@@ -95,13 +96,21 @@ class PagesController extends AppController
     }
     ####################################################
     public function classes(){
-      
+
       $classes = new Classes;
       $user_link = $this->request->session()->read('SELECTED_USER');
       $data = $classes->getClasses($user_link);
       // debug($data);exit;
       $this->set('data',$data);
 
+    }
+    ####################################################
+    public function papers(){
+      $papers = new Papers;
+      $user_link = $this->request->session()->read('SELECTED_USER');
+      $data = $papers->getPapers($user_link);
+        // debug($data);exit;
+      $this->set('data',$data);
     }
     ####################################################
     // public function display(...$path)
