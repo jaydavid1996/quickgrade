@@ -12,5 +12,14 @@ class Classes extends FireStore{
     return $data->json;
 
   }
+  public function viewClass($class_link = null){
+
+    $url = $this->default_url.$class_link;
+    $data = $this->http->get($url);
+    // debug($data->json);exit;
+    return $data->json;
+
+  }
+
 
 }

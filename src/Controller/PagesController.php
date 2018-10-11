@@ -55,23 +55,24 @@ class PagesController extends AppController
     }
     ####################################################
     public function users(){
+      #reset selected
       $this->request->session()->delete('SELECTED_USER');
       $user = new Users;
       $data = $user->getUsers();
 
       $this->set('data',$data);
       // debug($data);exit;
-
+      $this->set('active_nav','users');
 
     }
-    ####################################################
+    //-------------------------------------------------
     public function loaduser(){
        $user_link = $this->request->getQuery('user');
       if (empty($user_link)) {
         $this->redirect(['controller'=>'pages','action'=>'users']);
       }
       $this->request->session()->write('SELECTED_USER',$user_link);
-      $this->redirect(['controller'=>'pages','action'=>'students']);
+      $this->redirect(['controller'=>'pages','action'=>'exams']);
       // $this->redirect
     }
     ####################################################
@@ -81,17 +82,64 @@ class PagesController extends AppController
       $data = $students->getStudents($user_link);
       // debug($data);exit;
       $this->set('data',$data);
+      $this->set('active_nav','students');
+    }
+    //------------------------------------------------
+    public function loadstudent(){
+      $student_link = $this->request->getQuery('student');
+       if (empty($student_link)) {
+         $this->redirect(['controller'=>'pages','action'=>'students']);
+       }
+       $this->request->session()->write('SELECTED_STUDENT',$student_link);
+       $this->redirect(['controller'=>'pages','action'=>'viewstudent']);
+    }
+    //------------------------------------------------
+    public function viewstudent(){
+      if (!$this->request->session()->check('SELECTED_STUDENT')) {
+        $this->redirect(['controller'=>'pages','action'=>'students']);
+      }
+      $student_link = $this->request->session()->read('SELECTED_STUDENT');
+      $students = new Students;
 
+      $data = $students->viewStudent($student_link);
 
+      $this->set('data',$data);
+      $this->set('active_nav','students');
     }
     ####################################################
     public function exams(){
+      #reset selected
+      $this->request->session()->delete('SELECTED_EXAM');
 
       $exams = new Exams;
       $user_link = $this->request->session()->read('SELECTED_USER');
       $data = $exams->getExams($user_link);
       // debug($data);exit;
       $this->set('data',$data);
+      $this->set('active_nav','exams');
+
+    }
+    //------------------------------------------------
+    public function loadexam(){
+      $exam_link = $this->request->getQuery('exam');
+       if (empty($exam_link)) {
+         $this->redirect(['controller'=>'pages','action'=>'exams']);
+       }
+       $this->request->session()->write('SELECTED_EXAM',$exam_link);
+       $this->redirect(['controller'=>'pages','action'=>'viewexam']);
+    }
+    //------------------------------------------------
+    public function viewexam(){
+      if (!$this->request->session()->check('SELECTED_EXAM')) {
+        $this->redirect(['controller'=>'pages','action'=>'exams']);
+      }
+      $exam_link = $this->request->session()->read('SELECTED_EXAM');
+      $exams = new Exams;
+
+      $data = $exams->viewExam($exam_link);
+
+      $this->set('data',$data);
+      $this->set('active_nav','exams');
 
     }
     ####################################################
@@ -102,7 +150,30 @@ class PagesController extends AppController
       $data = $classes->getClasses($user_link);
       // debug($data);exit;
       $this->set('data',$data);
+      $this->set('active_nav','classes');
 
+    }
+    //------------------------------------------------
+    public function loadclass(){
+      $class_link = $this->request->getQuery('class');
+       if (empty($class_link)) {
+         $this->redirect(['controller'=>'pages','action'=>'classes']);
+       }
+       $this->request->session()->write('SELECTED_CLASS',$class_link);
+       $this->redirect(['controller'=>'pages','action'=>'viewclass']);
+    }
+    //------------------------------------------------
+    public function viewclass(){
+      if (!$this->request->session()->check('SELECTED_CLASS')) {
+        $this->redirect(['controller'=>'pages','action'=>'classes']);
+      }
+      $class_link = $this->request->session()->read('SELECTED_CLASS');
+      $classes = new Classes;
+
+      $data = $classes->viewClass($class_link);
+
+      $this->set('data',$data);
+      $this->set('active_nav','classes');
     }
     ####################################################
     public function papers(){
@@ -111,6 +182,7 @@ class PagesController extends AppController
       $data = $papers->getPapers($user_link);
         // debug($data);exit;
       $this->set('data',$data);
+      $this->set('active_nav','pages');
     }
     ####################################################
     // public function display(...$path)

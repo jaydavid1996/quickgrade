@@ -12,7 +12,7 @@
                     <th>Number Of Students</th>
                     <th>Number Of Exams</th>
                     <th></th>
-                    <th>(Temporary)</th>
+                    <!-- <th>(Temporary)</th> -->
 
                   </tr>
                 </thead>
@@ -30,8 +30,8 @@
                       count($value['fields']['exams']['arrayValue']['values']):0;
                        ?></td>
                   
-                      <td><?= $this->Html->link('View',['controller'=>'pages','action'=>'loaduser?user=',$value['name']]); ?></td>
-                      <td><?=$value['name'] ?></td>
+                      <td><?= $this->Html->link('View',['controller'=>'pages','action'=>'loadclass?class=',$value['name']]); ?></td>
+                      <!-- <td><?=$value['name'] ?></td> -->
                     </tr>
                   <?php endforeach; ?>
                 <?php endif; ?>

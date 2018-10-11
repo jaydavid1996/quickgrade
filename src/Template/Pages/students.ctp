@@ -12,7 +12,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th></th>
-                    <th>(Temporary)</th>
+                    <!-- <th>(Temporary)</th> -->
 
                   </tr>
                 </thead>
@@ -24,8 +24,8 @@
                       <td><?=$value['fields']['customID']['stringValue']; ?></td>
                       <td><?=$value['fields']['firstName']['stringValue']; ?></td>
                       <td><?=$value['fields']['lastName']['stringValue']; ?></td>
-                      <td><?= $this->Html->link('View',['controller'=>'pages','action'=>'loaduser?user=',$value['name']]); ?></td>
-                      <td><?=$value['name'] ?></td>
+                      <td><?= $this->Html->link('View',['controller'=>'pages','action'=>'loadstudent?student=',$value['name']]); ?></td>
+                      <!-- <td><?=$value['name'] ?></td> -->
                     </tr>
                   <?php endforeach; ?>
                 <?php endif; ?>

@@ -1,5 +1,28 @@
 <div class="container-fluid">
-<div class="card mb-3">
+
+    <div class="card mb-3 col-md-6">
+      <div class="card-header">
+        <i class="fas fa-table"></i>
+        Exam</div>
+        <div class="card-body">
+            <div class="form-group">
+              <label for=""> Name </label>
+              <input type="text" name="" value="<?= isset($data['fields']['name']['stringValue'])?$data['fields']['name']['stringValue']:'' ?>" disabled>
+            </div>
+    
+            <div class="form-group">
+              <label for=""> Exams </label>
+              <input type="text" name="" value="<?= isset($data['fields']['exams']['arrayValue']['values'])?count($data['fields']['exams']['arrayValue']['values']):'' ?>" disabled>
+            </div>
+            <div class="form-group">
+              <label for=""> Students </label>
+              <input type="text" name="" value="<?= isset($data['fields']['students']['arrayValue']['values'])?count($data['fields']['students']['arrayValue']['values']):'' ?>" disabled>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
             Exams</div>
@@ -12,34 +35,38 @@
                     <th>Items</th>
                     <th>Scanned</th>
                     <th></th>
-                    <!-- <th>(Temporary)</th> -->
+                    <th>(Temporary)</th>
 
                   </tr>
                 </thead>
 
                 <tbody>
+                <?php if (isset($data['documents'])&&!empty($data['documents']) ): ?>
                   <?php foreach ($data['documents'] as $key => $value): ?>
                     <tr>
                       <td><?=$value['fields']['name']['stringValue']; ?></td>
                       <td><?=$value['fields']['items']['integerValue']; ?></td>
                       <td><?=$value['fields']['scanned']['integerValue']; ?></td>
                       <td><?= $this->Html->link('View',['controller'=>'pages','action'=>'loadexam?exam=',$value['name']]); ?></td>
-                      <!-- <td><?=$value['name'] ?></td> -->
+                      <td><?=$value['name'] ?></td>
                     </tr>
                   <?php endforeach; ?>
+                <?php endif; ?>
                 </tbody>
               </table>
             </div>
           </div>
-    </div>
+    </div> -->
 </div>
+
+
   <?= $this->Html->scriptStart(['block' => 'scriptBottom']);?>
   //<script type="text/javascript">
   // Call the dataTables jQuery plugin
-  $(document).ready(function() {
-  $('#dataTable').DataTable();
-  });
-
+  // $(document).ready(function() {
+  // $('#dataTable').DataTable();
+  // });
+  // 
 
   //</script>
   <?= $this->Html->scriptEnd(); ?>

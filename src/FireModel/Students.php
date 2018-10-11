@@ -12,5 +12,14 @@ class Students extends FireStore{
     return $data->json;
 
   }
+  public function viewStudent($student_link = null){
+
+    $url = $this->default_url.$student_link;
+    $data = $this->http->get($url);
+    // debug($data->json);exit;
+    return $data->json;
+
+  }
+
 
 }
